@@ -13,10 +13,25 @@ struct HomeView: View {
     @State var active: Int = 123
     @State var stand: Int = 8
     
+    // Mockdata
+    
+    var MockActivity = [
+        
+        Activity(id: 0, title: "Today Steps", subtitle: " Goal 35000", image: "figure.walk", tintColor: .green, amount: "9800"),
+        
+        Activity(id: 1, title: "Today Steps", subtitle: " Goal 54009", image: "figure.walk", tintColor: .blue, amount: "6979"),
+        
+        Activity(id: 2, title: "Today Steps", subtitle: " Goal 64321", image: "figure.walk", tintColor: .red, amount: "4500"),
+        
+        Activity(id: 3, title: "Today Steps", subtitle: " Goal 55533", image: "figure.run", tintColor: .yellow, amount: "59800")
+        
+        
+    ]
+    
     
     var body: some View {
         ScrollView(showsIndicators: false){
-            VStack{
+            VStack(alignment: .leading){
                 
                 Text("Welcome")
                     .font(.largeTitle)
@@ -87,6 +102,35 @@ struct HomeView: View {
                     
                 }
                 .padding()
+                
+                // Title and button
+                
+                HStack{
+                    
+                    Text(" Fitness Activity")
+                    
+                    Spacer()
+                    
+                    Button{
+                        
+                        print("Show more")
+                    }label: {
+                        Text("Show more")
+                            .padding(.all, 10)
+                            .foregroundColor(.white)
+                            .background(.blue)
+                            .cornerRadius(20)
+                    }
+                }
+                .padding(.horizontal)
+                
+                // uploads pieces of data at a time to avoid bottleneck
+                LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2))
+                {
+                    ForEach(MockActivity, id: \.id ){
+                        activity in ActivityCardView(activity: activity)
+                    }
+                }
             }
         }
     }
